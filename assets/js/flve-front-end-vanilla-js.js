@@ -86,6 +86,7 @@
      */
     function loadVideoIntoElement(element, autoPlay) {
         var embedURL = element.getAttribute('data-embed-url');
+
         if (autoPlay) {
             embedURL = embedURL + '&autoplay=1';
         }
@@ -93,6 +94,10 @@
         // Ensure the element can only load once
         element.removeAttribute('data-embed-url');
 
+        while (element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
+        
         // Replace the elements content with the video iFrame
         element.innerHTML = '<iframe src="' + embedURL + '" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
     }
@@ -107,6 +112,10 @@
         var thumbURL = isRetina() ? element.getAttribute('data-retina-thumb-url') : element.getAttribute('data-thumb-url'),
             img = new Image(),
             btn = document.createElement("span");
+
+        while (element.firstChild) {
+            element.removeChild(element.firstChild);
+        }
 
         element.appendChild(img);
 
